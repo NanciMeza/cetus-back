@@ -36,6 +36,8 @@ namespace Cetus.Api
 
 
             services.AddTransient<IProductQueryService, ProductQueryService>();
+            services.AddTransient<IProviderQueryService, ProviderQueryService>();
+            services.AddTransient<IReceptionsQueryService, ReceptionsQueryService>();
 
             services.AddControllers();
 
