@@ -27,6 +27,8 @@ namespace Cetus.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+
             services.AddDbContext<ApplicationDbContext>(opts => 
             opts.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection"),
@@ -34,6 +36,15 @@ namespace Cetus.Api
                 ) 
             );
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("MyCorsPolicy", builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
 
             services.AddTransient<IProductQueryService, ProductQueryService>();
             services.AddTransient<IProviderQueryService, ProviderQueryService>();
@@ -53,6 +64,8 @@ namespace Cetus.Api
             }
 
             app.UseRouting();
+
+            app.UseCors("MyCorsPolicy");
 
             app.UseAuthorization();
 

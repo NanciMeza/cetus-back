@@ -1,4 +1,6 @@
-﻿using Persistence.DataBase;
+﻿using Entities.Model;
+using Microsoft.EntityFrameworkCore;
+using Persistence.DataBase;
 using Service.Queries.DTOs;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,11 @@ namespace Service.Queries
 
         // Se crea metodo para insertar
 
-        
+        string InsertReceptionsProduct(ReceptionProductsDTO reception);
+        // se crea para uodate
+
+        string UpdateReceptionsProduct(ReceptionProductsDTO reception);
+
     }
 
     public class ReceptionsQueryService : IReceptionsQueryService
@@ -28,13 +34,18 @@ namespace Service.Queries
 
         public List<ReceptionProductsDTO> GetAll()
         {
-            return Context.ReceptionProducts.OrderByDescending(x => x.FechaHoraRecepcion)
+            return Context.ReceptionProducts
+                //.Include(x => x.Product.Nombre)
+                //.Include(x => x.Provider.NombreRazonSocial)
+                .OrderByDescending(x => x.FechaHoraRecepcion)
                 .Select(r => new ReceptionProductsDTO()
                 {
                     Id = r.Id,
                     FechaHoraRecepcion = r.FechaHoraRecepcion,
                     ProductoId = r.ProductoId,
                     ProveedorId = r.ProveedorId,
+                    ProductoName = r.Product.Nombre,
+                    ProveedorName = r.Provider.NombreRazonSocial,
                     Factura = r.Factura,
                     Cantidad = r.Cantidad,
                     Lote = r.Lote,
@@ -53,8 +64,8 @@ namespace Service.Queries
                 {
                     Id = r.Id,
                     FechaHoraRecepcion = r.FechaHoraRecepcion,
-                    ProductoId = r.ProductoId,
-                    ProveedorId = r.ProveedorId,
+                    ProductoName = r.Product.Nombre,
+                    ProveedorName = r.Provider.NombreRazonSocial,
                     Factura = r.Factura,
                     Cantidad = r.Cantidad,
                     Lote = r.Lote,
@@ -64,6 +75,56 @@ namespace Service.Queries
                     Estado = r.Estado,
                 })
                 .FirstOrDefault();
+        }
+
+        public string InsertReceptionsProduct(ReceptionProductsDTO reception)
+        {
+           ReceptionProducts receptionProducts = new ReceptionProducts();
+
+            receptionProducts.Id = reception.Id;
+            receptionProducts.FechaHoraRecepcion=reception.FechaHoraRecepcion;
+            receptionProducts.ProductoId = reception.ProductoId;
+            receptionProducts.ProveedorId=reception.ProveedorId;
+            receptionProducts.Factura =reception.Factura;
+            receptionProducts.Cantidad = reception.Cantidad;
+            receptionProducts.Lote = reception.Lote;
+            receptionProducts.RegistroInvima=reception.RegistroInvima;
+            receptionProducts.FechaVencimiento = reception.FechaVencimiento;
+            receptionProducts.Descripcion =reception.Descripcion;
+            receptionProducts.Estado = reception.Estado;
+
+            Context.ReceptionProducts.Add(receptionProducts);
+            Context.SaveChanges();
+
+            return "Recepcion de Productos Guardado Correctamente";
+        }
+
+        public string UpdateReceptionsProduct(ReceptionProductsDTO reception)
+        {
+            ReceptionProducts receptionProducts = Context.ReceptionProducts.Where(p => p.Id == reception.Id).FirstOrDefault();
+
+            if (receptionProducts == null)
+            {
+                return "La recepcion no existe";
+            }
+
+
+            receptionProducts.Id = reception.Id;
+            receptionProducts.FechaHoraRecepcion = reception.FechaHoraRecepcion;
+            receptionProducts.ProductoId = reception.ProductoId;
+            receptionProducts.ProveedorId = reception.ProveedorId;
+            receptionProducts.Factura = reception.Factura;
+            receptionProducts.Cantidad = reception.Cantidad;
+            receptionProducts.Lote = reception.Lote;
+            receptionProducts.RegistroInvima = reception.RegistroInvima;
+            receptionProducts.FechaVencimiento = reception.FechaVencimiento;
+            receptionProducts.Descripcion = reception.Descripcion;
+            receptionProducts.Estado = reception.Estado;
+
+           
+            Context.SaveChanges();
+
+            return "Recepcion de Productos actualizado Correctamente";
         }
     }
 }

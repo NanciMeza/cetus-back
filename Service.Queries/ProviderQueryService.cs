@@ -1,4 +1,5 @@
-﻿using Persistence.DataBase;
+﻿using Entities.Model;
+using Persistence.DataBase;
 using Service.Queries.DTOs;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,9 @@ namespace Service.Queries
         List<ProvidersDTO> GetAll();
 
         ProvidersDTO GetProviderById(int id);
+
+        string InsertProvider(ProvidersDTO provider);
+        string UpdateProvider(ProvidersDTO provider);
     }
 
     public class ProviderQueryService : IProviderQueryService
@@ -28,7 +32,8 @@ namespace Service.Queries
             return Context.Providers.OrderBy(x => x.NombreRazonSocial)
                 .Select(p => new ProvidersDTO()
                 {
-                    TipoIdentificacion = p.TipoIdentificacion,
+                    NumIdentificacion=p.NumIdentificacion,
+                    TipoIdentificacion = p.TipoIdentificacion,                    
                     ProveedorId = p.ProveedorId,
                     NombreRazonSocial = p.NombreRazonSocial,
                     Direccion = p.Direccion,
@@ -44,6 +49,7 @@ namespace Service.Queries
             return Context.Providers.Where(x => x.ProveedorId == id)
                 .Select(p => new ProvidersDTO()
                 {
+                    NumIdentificacion = p.NumIdentificacion,
                     TipoIdentificacion = p.TipoIdentificacion,
                     ProveedorId = p.ProveedorId,
                     NombreRazonSocial = p.NombreRazonSocial,
@@ -53,5 +59,53 @@ namespace Service.Queries
                     Estado = p.Estado
                 }).FirstOrDefault();
         }
+
+        public string InsertProvider(ProvidersDTO provider)
+        {
+
+            Provider ProviderBd = new Provider();
+
+            ProviderBd.NombreRazonSocial=provider.NombreRazonSocial;
+            ProviderBd.Direccion = provider.Direccion;
+            ProviderBd.TipoIdentificacion = provider.TipoIdentificacion;
+            ProviderBd.NumIdentificacion=provider.NumIdentificacion;
+            ProviderBd.ProveedorId=provider.ProveedorId;
+            ProviderBd.NombreContacto=provider.NombreContacto;
+            ProviderBd.CelularContacto=provider.CelularContacto;
+            ProviderBd.Estado = provider.Estado;
+      
+
+
+            Context.Providers.Add(ProviderBd);
+            Context.SaveChanges();
+
+            return "Proveedor Guardado";
+        }
+
+        public string UpdateProvider(ProvidersDTO provider)
+        {
+
+            Provider ProviderBd = Context.Providers.Where(x => x.ProveedorId==provider.ProveedorId).FirstOrDefault();
+
+            if (ProviderBd == null)
+            {
+                return "El Proveedor no existe";
+            }
+
+            ProviderBd.NombreRazonSocial = provider.NombreRazonSocial;
+            ProviderBd.Direccion = provider.Direccion;
+            ProviderBd.TipoIdentificacion=provider.TipoIdentificacion;
+            ProviderBd.NumIdentificacion = provider.NumIdentificacion;
+            ProviderBd.NombreContacto = provider.NombreContacto;
+            ProviderBd.CelularContacto = provider.CelularContacto;
+            ProviderBd.Estado=provider.Estado;
+
+
+            Context.SaveChanges();
+
+            return "Proveedor actualizado";
+        }
+
+
     }
 }

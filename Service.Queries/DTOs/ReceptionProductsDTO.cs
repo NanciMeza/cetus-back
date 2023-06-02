@@ -10,6 +10,8 @@ namespace Service.Queries.DTOs
         public DateTime FechaHoraRecepcion { get; set; }
         public int ProductoId { get; set; }
         public int ProveedorId { get; set; }
+        public string ProveedorName { get; set; }
+        public string ProductoName { get; set; }
         public int Factura { get; set; }
         public int Cantidad { get; set; }
         public int Lote { get; set; }

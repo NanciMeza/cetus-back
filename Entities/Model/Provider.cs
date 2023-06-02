@@ -10,6 +10,7 @@ namespace Entities.Model
     {
         [Key]
         public int ProveedorId { get; set; }
+        public int NumIdentificacion { get; set; }
         public string TipoIdentificacion { get; set; }
         public string NombreRazonSocial { get; set; }
         public string Direccion { get; set; }

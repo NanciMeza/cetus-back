@@ -7,6 +7,7 @@ namespace Service.Queries.DTOs
     public class ProvidersDTO
     {
         public int ProveedorId { get; set; }
+        public int NumIdentificacion { get; set; }
         public string TipoIdentificacion { get; set; }
         public string NombreRazonSocial { get; set; }
         public string Direccion { get; set; }

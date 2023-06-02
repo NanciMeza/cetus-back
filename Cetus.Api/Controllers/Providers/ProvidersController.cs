@@ -26,6 +26,28 @@ namespace Cetus.Api.Controllers.Providers
         [HttpGet("{providerId}")]
         public ProvidersDTO GetProviderById(int providerId)
             => _providerQueryService.GetProviderById(providerId);
-        
+
+
+
+        /// <summary>
+        /// inserta  un Proveedor 
+        /// </summary>
+        /// <param name="providers"></param>
+        /// <returns>Objeto tipo Proveedor</returns>
+        /// <author>Nanci Meza</author>
+        [HttpPost]
+        public string InsertProduct(ProvidersDTO providers)
+            => _providerQueryService.InsertProvider(providers);
+
+        /// <summary>
+        /// actualiza un Proveedor
+        /// </summary>
+        /// <param name="providers"></param>
+        /// <returns>Objeto tipo Proveedor</returns>
+        /// <author>Nanci Meza</author>
+        [HttpPut]
+        public string UpdateProduct(ProvidersDTO providers)
+            => _providerQueryService.UpdateProvider(providers);
+
     }
 }

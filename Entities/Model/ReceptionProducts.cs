@@ -19,5 +19,8 @@ namespace Entities.Model
         public DateTime FechaVencimiento { get; set; }
         public string Descripcion { get; set; }
         public int Estado { get; set; }
+
+        public Product Product { get; set; }
+        public Provider Provider { get; set; }
     }
 }

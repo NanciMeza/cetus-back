@@ -32,7 +32,20 @@ namespace Cetus.Api.Controllers.ReceptionProducts
         [HttpGet("{receptionId}")]
         public ReceptionProductsDTO GetReceptionProductsById(int receptionId)
             => _receptionProductsQueryService.GetReceptionProductsById(receptionId);
-        
+
+        /// <summary>
+        /// inserta  un Recepcion 
+        /// </summary>
+        /// <param name="receptionProducts"></param>
+        /// <returns>Objeto tipo Recepcion</returns>
+        /// <author>Nanci Meza</author>
+        [HttpPost]
+        public string InsertReceptionsProduct(ReceptionProductsDTO receptionProducts)
+            => _receptionProductsQueryService.InsertReceptionsProduct(receptionProducts);
+
+        [HttpPut]
+        public string UpdateReceptionsProduct(ReceptionProductsDTO receptionProducts)
+            => _receptionProductsQueryService.UpdateReceptionsProduct(receptionProducts);
 
     }
 }
