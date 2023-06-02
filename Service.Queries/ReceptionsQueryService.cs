@@ -11,6 +11,10 @@ namespace Service.Queries
     {
         List<ReceptionProductsDTO> GetAll();
         ReceptionProductsDTO GetReceptionProductsById(int id);
+
+        // Se crea metodo para insertar
+
+        
     }
 
     public class ReceptionsQueryService : IReceptionsQueryService

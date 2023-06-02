@@ -1,4 +1,5 @@
-﻿using Persistence.DataBase;
+﻿using Entities.Model;
+using Persistence.DataBase;
 using Service.Queries.DTOs;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,9 @@ namespace Service.Queries
         List<ProductsDTO> GetAll();
 
         ProductsDTO GetProductById(int id);
+
+        string InsertProduct(ProductsDTO product);
+        string UpdateProduct(ProductsDTO product);
     }
     
     public class ProductQueryService : IProductQueryService
@@ -47,6 +51,40 @@ namespace Service.Queries
                     NombreLaboratorio = p.NombreLaboratorio,
                     Estado = p.Estado
                 }).FirstOrDefault();
+        }
+
+        public string InsertProduct(ProductsDTO products)
+        {
+
+            Product ProductoBd = new Product();
+
+            ProductoBd.Nombre= products.Nombre;
+            ProductoBd.Descripcion= products.Descripcion;
+            ProductoBd.NombreLaboratorio= products.NombreLaboratorio;
+            ProductoBd.Estado = products.Estado;
+            Context.Products.Add(ProductoBd);
+            Context.SaveChanges();
+
+            return "Ok";
+        }
+
+        public string UpdateProduct(ProductsDTO products)
+        {
+
+            Product ProductoBd =Context.Products.Where(x => x.ProductoId==products.ProductoId).FirstOrDefault();
+
+            if(ProductoBd == null)
+            {
+                return "el producto no existe";
+            }
+
+            ProductoBd.Nombre = products.Nombre;
+            ProductoBd.Descripcion = products.Descripcion;
+            ProductoBd.NombreLaboratorio = products.NombreLaboratorio;
+            ProductoBd.Estado = products.Estado;
+            Context.SaveChanges();
+
+            return "producto actualizado";
         }
     }
 }

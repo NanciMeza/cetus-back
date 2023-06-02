@@ -36,5 +36,27 @@ namespace Cetus.Api.Controllers.Productos
         public ProductsDTO GetProductById(int productId)
             => _productQueryService.GetProductById(productId);
 
+
+        /// <summary>
+        /// inserta  un producto 
+        /// </summary>
+        /// <param name="products"></param>
+        /// <returns>Objeto tipo producto</returns>
+        /// <author>Nanci Meza</author>
+        [HttpPost]
+        public string  InsertProduct(ProductsDTO products)
+            => _productQueryService.InsertProduct(products);
+
+
+        /// <summary>
+        /// actualiza un producto
+        /// </summary>
+        /// <param name="products"></param>
+        /// <returns>Objeto tipo producto</returns>
+        /// <author>Nanci Meza</author>
+        [HttpPut]
+        public string UpdateProduct(ProductsDTO products)
+            => _productQueryService.UpdateProduct(products);
+
     }
 }
