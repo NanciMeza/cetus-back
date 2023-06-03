@@ -21,6 +21,23 @@ namespace Persistence.DataBase
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+            builder.Entity<ReceptionProducts>()
+               .HasOne(rp => rp.ProviderNavigation)
+                .WithMany()
+                .HasForeignKey(rp => rp.ProveedorId);
+
+            builder.Entity<ReceptionProducts>()
+                .HasOne(rp => rp.ProductNavigation)
+                .WithMany()
+               .HasForeignKey(rp => rp.ProductoId); builder.Entity<ReceptionProducts>()
+               .HasOne(rp => rp.ProviderNavigation)
+               .WithMany()
+               .HasForeignKey(rp => rp.ProveedorId);
+
+            builder.Entity<ReceptionProducts>()
+                .HasOne(rp => rp.ProductNavigation)
+              .WithMany()
+               .HasForeignKey(rp => rp.ProductoId);
         }
 
         protected void ModelConfig(ModelBuilder modelBuilder)

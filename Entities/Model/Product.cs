@@ -14,5 +14,6 @@ namespace Entities.Model
         public string Descripcion { get; set; }
         public string NombreLaboratorio { get; set; }
         public bool Estado { get; set; }
+        public int Id { get; set; }
     }
 }

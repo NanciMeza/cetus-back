@@ -10,8 +10,8 @@ using Persistence.DataBase;
 namespace Persistence.DataBase.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230602154459_Migracion_ajuste")]
-    partial class Migracion_ajuste
+    [Migration("20230603032900_MigracionFinal")]
+    partial class MigracionFinal
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -17,5 +17,6 @@ namespace Entities.Model
         public string NombreContacto { get; set; }
         public string CelularContacto { get; set; }
         public bool Estado { get; set; }
+        public int Id { get; set; }
     }
 }

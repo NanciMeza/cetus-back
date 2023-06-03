@@ -35,8 +35,8 @@ namespace Service.Queries
         public List<ReceptionProductsDTO> GetAll()
         {
             return Context.ReceptionProducts
-                //.Include(x => x.Product.Nombre)
-                //.Include(x => x.Provider.NombreRazonSocial)
+                .Include(x => x.ProductNavigation.Nombre)
+                .Include(x => x.ProviderNavigation.NombreRazonSocial)
                 .OrderByDescending(x => x.FechaHoraRecepcion)
                 .Select(r => new ReceptionProductsDTO()
                 {
@@ -44,8 +44,8 @@ namespace Service.Queries
                     FechaHoraRecepcion = r.FechaHoraRecepcion,
                     ProductoId = r.ProductoId,
                     ProveedorId = r.ProveedorId,
-                    ProductoName = r.Product.Nombre,
-                    ProveedorName = r.Provider.NombreRazonSocial,
+                    ProductoName = r.ProductNavigation.Nombre,
+                    ProveedorName = r.ProviderNavigation.NombreRazonSocial,
                     Factura = r.Factura,
                     Cantidad = r.Cantidad,
                     Lote = r.Lote,
@@ -64,8 +64,8 @@ namespace Service.Queries
                 {
                     Id = r.Id,
                     FechaHoraRecepcion = r.FechaHoraRecepcion,
-                    ProductoName = r.Product.Nombre,
-                    ProveedorName = r.Provider.NombreRazonSocial,
+                    ProductoName = r.ProductNavigation.Nombre,
+                    ProveedorName = r.ProviderNavigation.NombreRazonSocial,
                     Factura = r.Factura,
                     Cantidad = r.Cantidad,
                     Lote = r.Lote,

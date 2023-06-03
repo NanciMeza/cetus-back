@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Persistence.DataBase.Migrations
 {
-    public partial class Migracion_Inicial : Migration
+    public partial class MigracionFinal : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -29,6 +29,7 @@ namespace Persistence.DataBase.Migrations
                 {
                     ProveedorId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    NumIdentificacion = table.Column<int>(nullable: false),
                     TipoIdentificacion = table.Column<string>(nullable: true),
                     NombreRazonSocial = table.Column<string>(nullable: true),
                     Direccion = table.Column<string>(nullable: true),

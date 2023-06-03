@@ -20,7 +20,7 @@ namespace Entities.Model
         public string Descripcion { get; set; }
         public int Estado { get; set; }
 
-        public Product Product { get; set; }
-        public Provider Provider { get; set; }
+       public Provider ProviderNavigation { get; set; }
+      public Product ProductNavigation { get; set; }
     }
 }
